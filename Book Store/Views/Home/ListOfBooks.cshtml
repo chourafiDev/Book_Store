@@ -1,0 +1,130 @@
+﻿@model Book_Store.ViewModels.SearchIndexViewModel
+
+@{
+    ViewData["Title"] = "Book Store - List Of Books";
+}
+
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb my-auto">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Book List </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="m-0 custom">
+<!--=================================
+Breadcrumb -->
+
+<!--=================================
+Listing – grid view -->
+<section class="space-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title mb-3 mb-lg-4">
+                    <h2><span class="text-primary">(@ViewBag.CountBooks)</span> Results</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 mb-5 mb-lg-0">
+                <div class="sidebar">
+                    <div class="widget">
+                        <div class="widget-title widget-collapse">
+                            <h6>Genres List</h6>
+                            <a class="ml-auto" data-toggle="collapse" href="#type-property" role="button" aria-expanded="false" aria-controls="type-property"> <i class="fas fa-chevron-down"></i> </a>
+                        </div>
+                        <div class="collapse show" id="type-property">
+                            <ul class="list-unstyled mb-0 pt-3">
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <li><a asp-action="GetBooksByGenre" asp-route-id="@genre.Id">@genre.Name<span class="ml-auto"></span></a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-title">
+                            <h6>Recently listed Books</h6>
+                        </div>
+                        @foreach (var Books in Model.BooksResent)
+                        {
+                            <div class="recent-list-item">
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@Books.Id">
+                                    <img class="img-fluid" src="data:image\/*;base64,@(Convert.ToBase64String(Books.Image))" alt="Recent Books">
+                                </a>
+                                <div class="recent-list-item-info">
+                                    <a class="mb-2" asp-controller="Books" asp-action="Details" asp-route-id="@Books.Id">@Books.Title</a>
+                                    <b class="text-primary">Genre: @Books.Genres.Name</b>
+                                    <span class="text-primary">$@Books.Rate</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="book-list">
+                    <div class="row">
+                        @foreach (var item in Model.Books)
+                        {
+                            <div class="col-md-4 mb-5">
+                                <div class="item">
+                                    <div class="image w-100">
+                                        <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src="data:image\/*;base64,@(Convert.ToBase64String(item.Image))" alt="book"></a>
+                                    </div>
+                                    <h4><a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h4>
+                                    <p>Genre: @item.Genres.Name</p>
+                                    <div class="item-footer d-flex justify-content-between align-items-center">
+                                        <b>$@item.Price</b>
+                                        <div class="d-flex">
+                                            <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id" class="mr-2"><i class='bx bx-show font-lg border icon-show-deails'  title="Show Details"></i></a>
+                                            <a href="#" class="mr-2"><i class='bx bx-heart font-lg border' title="Favourite"></i></a>
+                                            <span class="badge rounded-pill bg-warning text-dark my-auto"><i class='bx bxs-star'></i> @item.Rate.ToString("0.0")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+Listing – grid view -->
+
+
+
+<!--=================================
+newsletter -->
+<section class="py-5 bg-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h3 class="text-white text-center mb-0 font-xl">Sign up to our newsletter to get the latest news and offers.</h3>
+            </div>
+            <div class="col-md-7 mt-3 mt-md-0">
+                <div class="newsletter">
+                    <form class="d-flex mx-auto ml-auto bg-white p-2">
+                        <div class="form-group mb-0 w-75">
+                            <input type="email" class="form-control" placeholder="Enter email">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-notified">Get notified</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+newsletter -->

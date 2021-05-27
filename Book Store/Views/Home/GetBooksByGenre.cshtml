@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Book_Store.Models.Book>
+
+@{
+    ViewData["Title"] = "GetBooksByGenre";
+}
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a asp-controller="Home" asp-action="ListOfBooks">Back To List Book</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Books by genre </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=================================
+Breadcrumb -->
+<!--=================================
+Listing – grid view -->
+<section class="space-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title mb-5 mb-lg-4">
+                    <h2><span class="text-primary">(@ViewBag.CountResultGenre)</span> Result(s)</h2>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-lg-9">*@
+
+        @if (Model.Any())
+        {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-5">
+                    <div class="book-list mt-5">
+                        <div class="item">
+                            <div class="image w-100">
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src="data:image\/*;base64,@(Convert.ToBase64String(item.Image))" alt="book"></a>
+                            </div>
+                            <h4><a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h4>
+                            <p>Genre: @item.Genres.Name</p>
+                            <div class="item-footer d-flex justify-content-between align-items-center">
+                                <b>$@item.Price</b>
+                                <div class="d-flex">
+                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id" class="mr-2"><i class='bx bx-show font-lg border icon-show-deails' title="Show Details"></i></a>
+                                    <a href="#" class="mr-2"><i class='bx bx-heart font-lg border' title="Favourite"></i></a>
+                                    <span class="badge rounded-pill bg-warning text-dark my-auto"><i class='bx bxs-star'></i> @item.Rate.ToString("0.0")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        }
+           
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning w-100">
+                    No Results About This Genre Yet...
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!--=================================
+Listing – grid view -->

@@ -1,0 +1,145 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    //ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb my-auto">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Profile </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="m-0 custom">
+<!--=================================
+Breadcrumb -->
+<!--=================================
+Profile -->
+<section class="space-ptb form">
+    <div class="container">
+        <div class="row">
+            <form class="profile_form mx-auto" method="post" enctype="multipart/form-data">
+                <input asp-for="Input.Id" hidden />
+                <partial name="_StatusMessage" model="Model.StatusMessage" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="text-light">
+                    <p>Joined @ViewData["DateCreation"]</p>
+                </div>
+                <div class="content custom-shadow p-4">
+                    <div class="content-head">
+                        <h1>Avatar</h1>
+                        <hr>
+                    </div>
+
+                    <div class="avatar d-flex align-items-center">
+                        @if (Model.Input.ProfilePicture != null)
+                        {
+                            <img id="ProfilePicture" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))" alt="Profile Picture" />
+                        }
+                        else
+                        {
+                            <img id="ProfilePicture" src="~/images/user_profile.svg" alt="Profile Picture" />
+
+                        }
+                        <div class="custom-file ml-5">
+                            <input type="file" class="custom-file-input" accept="image/*" asp-for="Input.ProfilePicture"
+                                   onchange="document.getElementById('ProfilePicture').src = window.URL.createObjectURL(this.files[0])">
+                            <label class="custom-file-label" asp-for="Input.ProfilePicture">Choose picture...</label>
+                            <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="text-content mt-4">
+                        <p>
+                            You can inject a little more personality
+                            into your profile and help people recognize
+                            you across Book Store by uploading an avatar
+                            (an image, photo, or other graphic icons of "you").
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content custom-shadow p-4 mt-5">
+                    <div class="content-head">
+                        <h1>Unique Information</h1>
+                        <hr>
+                    </div>
+                    <div class="text-content mt-4">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control Unique_Info" asp-for="Username" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" class="form-control Unique_Info"asp-for="Email" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content custom-shadow p-4 mt-5">
+                    <div class="content-head">
+                        <h1>Profile</h1>
+                        <hr>
+                    </div>
+                    <div class="text-content mt-4">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" asp-for="Input.FirstName">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" asp-for="Input.LastName">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" asp-for="Input.PhoneNumber">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-8">
+                                <label>Full Adress</label>
+                                <input type="text" class="form-control" asp-for="Input.FullAdress">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Zip Code</label>
+                                <input type="text" class="form-control" asp-for="Input.ZipCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 mt-5 p-0">
+                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                </div>
+            </form>
+
+            <hr>
+
+            <div class="form-row delete-account mx-auto mt-5">
+                <div class="content-delete-account custom-shadow p-4">
+                    <h6>Delete Account?</h6>
+                    <p>
+                        This will remove your login information from our
+                        system, and you will not be able to login again. It cannot be undone.
+                    </p>
+                </div>
+                <div class="col-sm-4 p-0 mt-5">
+                    <button type="submit" class="btn btn-danger btn-block">Yes Delete My Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+Profile -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

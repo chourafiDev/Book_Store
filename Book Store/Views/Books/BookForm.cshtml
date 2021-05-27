@@ -1,0 +1,108 @@
+﻿@model BookFormViewModel
+@{
+    ViewData["Title"] = "Submit You Listing";
+    Layout = "_FormLayout";
+}
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb my-auto">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a asp-action="index">Book List</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Create Book </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="m-0 custom">
+<!--=================================
+Breadcrumb -->
+<!--=================================
+Creat Book -->
+<section id="create_book">
+    <div class="container">
+        <h2 class="form-head">Submit Your Listing </h2>
+        <form method="post" asp-action="@(Model.Id > 0 ? "Edit" : "Create")" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div class="sub-form custom-shadow border">
+                <h4 class="sub-form-head">Book Informations</h4>
+                <hr>
+                <div class="row mt-4">
+                    <div class="form-group col-md-12">
+                        <label asp-for="Title"></label>
+                        <input type="text" class="form-control" asp-for="Title">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label asp-for="Description"></label>
+                        <textarea class="form-control" name="Description" id="Description" cols="30" rows="5" asp-for="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-6 select-border">
+                        <label asp-for="GenreId"></label>
+                        <select asp-for="GenreId" asp-items="@(new SelectList(Model.Genres, "Id", "Name"))" class="form-control text-dark  basic-select">
+                            <option value="" selected disabled>Select Book Genre</option>
+                        </select>
+                        <span asp-validation-for="GenreId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Price"></label>
+                        <input class="form-control" type="number" min="1" value="@(Model.Price > 0 ? Model.Price : string.Empty)" asp-for="Price">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="TotalPages"></label>
+                        <input class="form-control" type="number" min="1" value="@(Model.TotalPages > 0 ? Model.TotalPages : string.Empty)" asp-for="TotalPages">
+                        <span asp-validation-for="TotalPages" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Rate"></label>
+                        <input class="form-control" type="number" min="1" value="@(Model.Rate > 0 ? Model.Rate : string.Empty)" asp-for="Rate">
+                        <span asp-validation-for="Rate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-form custom-shadow border mt-5">
+                <h4 class="sub-form-head">Book Image</h4>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-file">
+                            <input asp-for="Image" id="ImageInput" type="file" class="custom-file-input" alt="Book Image">
+                            <label asp-for="Image" class="custom-file-label">Choose Image...</label>
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-save mt-5"><i class='bx bx-check mr-2'></i>Save</button>
+        </form>
+    </div>
+</section>
+<!--=================================
+Creat Book -->
+
+@section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @*<script>
+            $(document).ready(function () {
+                $('ImageInput').on('change', function () {
+                    var selectedFile = $(this).val().split('//').pop();
+                    $(this).siblings('label').text(selectedFile);
+
+                    var imageContainer = $('imageContainer');
+                    var image = window.URL.createObjectURL(this.files[0]);
+
+                    imageContainer.find('img').attr('src', image);
+                });
+            });
+        </script>*@
+
+
+}

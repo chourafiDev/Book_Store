@@ -1,0 +1,173 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Book Store" />
+    <meta name="description" content="Book Store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Store - Sign Up</title>
+
+    <!-- Favicon -->
+    <link rel='shortcut icon' type='image/png' href='#' />
+
+    <!-- Google Font Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Google Font Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    @*<link rel="stylesheet" href="~/lib/boxicon/boxicons.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <!-- Page CSS Implementing Plugins-->
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/animate.css/animate.min.css" rel="stylesheet" />
+    @*<link href="~/lib/Swiper/swiper-bundle.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+
+    <!-- Template Style -->
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+
+    <!--=================================
+    header -->
+    <header>
+        <!-- Nav bar -->
+        <nav class="navbar navbar-expand-lg custom-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="index"><img src="~/images/logo.svg" alt="logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class='bx bx-menu-alt-right text-white font-xl btn-menu p-2'></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Home" asp-action="index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="ListOfBooks">Our Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="ContactUs">Contact</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <partial name="_LoginPartial" />
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Nav bar -->
+    </header>
+    <!--=================================
+    header -->
+
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!--=================================
+    footer -->
+    <footer class="footer bg-light space-pt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-contact-info">
+                        <h5 class="text-primary mb-4">About Book Store</h5>
+                        <p class="text-dark mb-4"><q>Book Store</q> helped thousands of clients to find Your Imagined in books.</p>
+                        <ul class="list-unstyled mb-0">
+                            <li class="my-3"> <b> <i class='bx bx-map  text-primary mr-2 font-xl custom-shadow'></i></b><span class="text-dark my-auto">Ait Ourir Rue Hassan 2</span> </li>
+                            <li class="my-3"> <b><i class='bx bx-mobile-alt text-primary mr-2 font-xl custom-shadow'></i></b><span class="text-dark my-auto">(+212) 603940215</span> </li>
+                            <li class="my-3"> <b><i class='bx bx-support text-primary mr-2 font-xl custom-shadow'></i></b><span class="text-dark my-auto">support@chourafidev.com</span> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+                    <div class="footer-link">
+                        <h5 class="text-primary mb-4">Useful links</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li> <a href="#" class="text-dark">Book List </a> </li>
+                            <li> <a href="#" class="text-dark">Contact Us </a> </li>
+                            <li> <a href="#" class="text-dark">Help Center</a> </li>
+                            <li> <a href="#" class="text-dark">Services </a> </li>
+                            <li> <a href="#" class="text-dark">Terms and Conditions </a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+                    <div class="footer-link">
+                        <h5 class="text-primary mb-4">About</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li> <a href="#" class="text-dark">About Us </a> </li>
+                            <li> <a href="#" class="text-dark">Partner Program </a> </li>
+                            <li> <a href="#" class="text-dark">Affiliates</a> </li>
+                            <li> <a href="#" class="text-dark">Jobs </a> </li>
+                            <li> <a href="#" class="text-dark">Sell your book </a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+                    <h5 class="text-primary mb-4">Subscribe us</h5>
+                    <div class="footer-subscribe">
+                        <p class="text-dark">Sign up to our newsletter to get the latest news and offers.</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter email">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm">Get notified</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom mx-auto">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 text-center">
+                        <p class="mb-0 text-white">
+                            &copy;Copyright <span id="copyright">
+                                <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+                            </span> <a href="#"> <b>Book Store</b> </a> All Rights Reserved
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--=================================
+    footer-->
+    <!-- JS Global Compulsory-->
+    @*<script src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Page JS Implementing Plugins-->
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    @await Component.InvokeAsync("NToastNotify")
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+    @*<script src="~/lib/Swiper/swiper-bundle.js"></script>*@
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+
+    <!-- Custom Scripts-->
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+    @* <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)*@
+</body>
+</html>

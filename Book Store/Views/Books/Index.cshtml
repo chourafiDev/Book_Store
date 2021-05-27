@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Book Store - Our Books";
+    Layout = "_FormLayout";
+}
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb my-auto">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Book List </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="m-0 custom">
+<!--=================================
+Breadcrumb -->
+
+
+<!--=================================
+Book List -->
+<section id="book_list">
+    <div class="container">
+        <h1 class="title-list d-block">Book List</h1>
+        <div class="creat-info p-3 my-4 border custom-shadow">
+            <p>
+                <b>File requirements for creating a new book</b> <br>
+                We recommend high-resolution JPEG, PNG files, and fill all fields are required to accept your book
+            </p>
+            <a class="btn btn-primary btn-Add" asp-action="Create"><i class='bx bx-plus'></i> Add New Book</a>
+        </div>
+        <hr />
+        <div class="row">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning w-100" role="alert">
+                    <i class='bx bx-info-circle'></i> No Book Added Yet...
+                </div>
+            }
+            else
+            {
+                @foreach (var book in Model)
+                {
+                    <div class="col-md-6 mt-4 delete">
+                        <div class="book-item custom-shadow border d-flex justify-content-center py-4 px-2">
+                            <div class="image-book">
+                               <a asp-action="Details" asp-route-id="@book.Id" ><img src="data:image\/*;base64,@(Convert.ToBase64String(book.Image))" class="mt-1 custom-shadow2" alt="Book"></a> 
+                            </div>
+                            <div class="book-content ml-5">
+                                <div class="head-content d-flex">
+                                    <h1><a asp-action="Details" asp-route-id="@book.Id" >@book.Title</a></h1>
+                                    <small class="rate ml-3 d-flex justify-content-center align-items-center"><i class='bx bxs-star'></i><b class="ml-1"> @book.Rate.ToString("0.0")</b></small>
+                                </div>
+                                <p>
+                                    @(@book.Description.Length > 500 ? $"{@book.Description.Substring(0,200)}..." : @book.Description)
+                                </p>
+                                <hr>
+                                <div class="book-info ">
+                                    <table class="w-100">
+                                        <tr>
+                                            <td><b>Genre:</b> @book.Genres.Name</td>
+                                            <td><b>Price:</b> $@book.Price</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Total Pages:</b> 100</td>
+                                            <td><b>Published At:</b> 05/10/2021</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions d-flex justify-content-center align-items-center my-2 bg-light py-2 custom-shadow">
+                            <h6>Actions:</h6>
+                            <div>
+                                <a asp-action="Details" asp-route-id="@book.Id" class="mr-2 btn btn-primary"><i class='bx bx-show-alt mr-1'></i> Details</a>
+                                <a asp-action="Edit" asp-route-id="@book.Id" class="mr-2 btn btn-warning"><i class='bx bx-edit-alt mr-1'></i>Edit </a>
+                                <a href="javascript:;" class="btn btn-danger js-delete" data-id="@book.Id"><i class='bx bx-x'></i> Delete</a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+                </div>
+</section>
+<!--=================================
+Book List -->
+
+@section Scripts{
+
+    <script>
+/*const { error } = require("jquery");*/
+
+    $(document).ready(function () {
+
+        $(".js-delete").on('click', function () {
+            var btn = $(this);
+
+            bootbox.confirm({
+                title: "CONFIRMATION...",
+                message: "Are you sur that you need to delete this book?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> Delete',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: '/Books/Delete/' + btn.data('id'),
+                            success: function () {
+                                var bookContainer = btn.parents('.delete');
+                                bookContainer.addClass('animate__animated animate__zoomOut');
+
+                                setTimeout(function () {
+                                    bookContainer.remove();
+                                }, 1000);
+
+                                toastr.success("Book Deleted");
+                            },
+                            error: function () {
+                                toastr.error("Something went wrong");
+                            }
+                        });
+                    }
+                }
+            });
+        })
+    });
+    </script>
+}

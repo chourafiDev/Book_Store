@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (UserManager.GetUserAsync(User).Result.UserPhoto != null)
+        {
+            <li class="nav-item m-0">
+                <img class="rounded-circle img-thumbnail custom-shadow" alt="profil" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.UserPhoto))"
+                     style="width: 50px; height: 50px; object-fit: cover; " />
+            </li>
+            //FullName = user.FirstName
+        }
+
+        var FullName = User.Identity.Name;
+        ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+
+        //if (user != null && !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName))
+        //{oUpper() + " " + user.LastName.ToUpper();
+        //}
+
+        <li class="nav-item dropdown d-flex align-items-center">
+            @if (FullName != null)
+            {
+                <a href="#" role="button" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @FullName
+                </a>
+            }
+            else
+            {
+                @User.Identity.Name
+            }
+            <div class="dropdown-menu" style="transform:translateX(-4rem)">
+                <a class="dropdown-item text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> <i class='bx bx-edit mr-2'></i> Edit Account</a>
+                <a class="dropdown-item text-dark" asp-controller="Books" asp-action="Index"> <i class='bx bx-show-alt mr-2'></i> View Shop</a>
+                <a class="dropdown-item text-dark" asp-controller="Books" asp-action="Create"> <i class='bx bx-plus-circle mr-2'></i> Add Work</a>
+                <a class="dropdown-item text-dark" href="#"> <i class='bx bx-help-circle mr-2'></i> Help</a>
+                <div class="dropdown-divider"></div>
+                <div class="d-flex justify-content-center">
+                    <form class="form-inline mx-auto" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="btn btn-primary p-1 " style="width:90%; font-size:15px">
+                            <i class='bx bx-log-out-circle mr-2'></i> Log Out
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </li>
+
+        @*<li class="nav-item">
+                <a class="btn pt-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="btn btn-primary ml-3">Log Out</button>
+                </form>
+            </li>*@
+    }
+    else
+    {
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn">Log In</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary" style="color:white">Sign Up</a>
+        </li>
+    }
+</ul>

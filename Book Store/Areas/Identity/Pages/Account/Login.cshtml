@@ -1,0 +1,77 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Book Store - Log in";
+}
+
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">  <i class='bx bx-home'></i> <a href="@Url.Action("Home","index")">Home</a></li>
+                    <li class="breadcrumb-item active"> <i class='bx bx-chevron-right'></i> <span> Login </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=================================
+Breadcrumb -->
+<!--=================================
+Login -->
+<section class="space-ptb form-identity">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-10">
+                <div class="section-title">
+                    <h2 class="text-center">Login</h2>
+                </div>
+                <!-- ============================== Login ============================== -->
+                <form class="form-row mt-4 align-items-center border p-4 rounded shadow-sm" id="account" method="post">
+                    <div class="form-group col-sm-12">
+                        <input asp-for="Input.Email" class="form-control" placeholder="Username" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-check col-sm-12 pb-3 ml-4">
+                        <input asp-for="Input.RememberMe" type="checkbox" class="form-check-input" id="Remember">
+                        <label class="form-check-label" for="Remember">Remember Me</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-primary btn-block signIn">Sign in</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="list-unstyled d-flex justify-content-center mb-1 mt-sm-0 mt-3">
+                            <li class="mr-1"><b><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">You don't have an acoount? Click here to register</a></b></li>
+                        </ul>
+                    </div>
+                </form>
+                <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 mt-5 rounded shadow-sm">
+                    <div class="mb-4 d-block text-center"><b class="text-dark font-md pl-2 pr-2 mt-3 d-block">Login or Sign in with</b></div>
+                    <form class="row">
+                        <div class="col-sm-6">
+                            <a class="btn facebook-bg social-bg-hover d-block mb-3" href="#"><span><i class='bx bxl-facebook'></i>Login with Facebook</span></a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn google-bg social-bg-hover d-block mb-3 mb-sm-0" href="#"><span><i class='bx bxl-google'></i>Login with Google</span></a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+Login -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
